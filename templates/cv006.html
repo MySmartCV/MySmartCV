@@ -291,9 +291,17 @@
         line-height: 1.4;
       }
 
-      .edu-year {
+      .edu-meta {
         font-size: 0.32cm;
         color: var(--muted);
+        margin-top: 0.5mm;
+      }
+
+      .edu-detail {
+        font-size: 0.31cm;
+        color: var(--text-sm);
+        margin-top: 1mm;
+        line-height: 1.4;
       }
 
       /* ── EXPERIENCE ── */
@@ -333,7 +341,7 @@
         white-space: nowrap;
       }
 
-      .exp-company {
+      .exp-company, .exp-location {
         font-size: 0.33cm;
         color: var(--muted);
       }
@@ -540,9 +548,12 @@
               <div class="edu-entry">
                 <div class="edu-major">{{degree}}</div>
                 <div class="edu-school">{{school}}</div>
-                {{#year}}
-                <div class="edu-year">{{year}}</div>
-                {{/year}}
+                <div class="edu-meta">
+                  {{#year}}{{year}}{{/year}}{{#year}}{{#location}} | {{/location}}{{/year}}{{#location}}{{location}}{{/location}}
+                </div>
+                {{#detail}}
+                <div class="edu-detail">{{detail}}</div>
+                {{/detail}}
               </div>
               {{/education}}
             </div>
@@ -559,8 +570,8 @@
                   <span class="exp-badge"
                     >{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}</span
                   >
-                  {{#company}}<span class="exp-company">{{company}}</span
-                  >{{/company}}
+                  {{#company}}<span class="exp-company">{{company}}</span>{{/company}}
+                  {{#location}}<span class="exp-location">{{#company}} | {{/company}}{{location}}</span>{{/location}}
                 </div>
                 {{#description}}
                 <div class="exp-desc">{{description}}</div>
