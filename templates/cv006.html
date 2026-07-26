@@ -297,6 +297,10 @@
         margin-top: 0.5mm;
       }
 
+      .edu-meta span:not(:empty) + span:not(:empty)::before {
+        content: " | ";
+      }
+
       .edu-detail {
         font-size: 0.31cm;
         color: var(--text-sm);
@@ -344,6 +348,10 @@
       .exp-company, .exp-location {
         font-size: 0.33cm;
         color: var(--muted);
+      }
+
+      .exp-company + .exp-location::before {
+        content: " | ";
       }
 
       .exp-desc {
@@ -548,9 +556,7 @@
               <div class="edu-entry">
                 <div class="edu-major">{{degree}}</div>
                 <div class="edu-school">{{school}}</div>
-                <div class="edu-meta">
-                  {{#year}}{{year}}{{/year}}{{#year}}{{#location}} | {{/location}}{{/year}}{{#location}}{{location}}{{/location}}
-                </div>
+                <div class="edu-meta"><span class="edu-year">{{year}}</span><span class="edu-location">{{location}}</span></div>
                 {{#detail}}
                 <div class="edu-detail">{{detail}}</div>
                 {{/detail}}
@@ -571,7 +577,7 @@
                     >{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}</span
                   >
                   {{#company}}<span class="exp-company">{{company}}</span>{{/company}}
-                  {{#location}}<span class="exp-location">{{#company}} | {{/company}}{{location}}</span>{{/location}}
+                  {{#location}}<span class="exp-location">{{location}}</span>{{/location}}
                 </div>
                 {{#description}}
                 <div class="exp-desc">{{description}}</div>
