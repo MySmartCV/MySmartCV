@@ -486,22 +486,19 @@
           <div class="hobbies-section">
             <div class="sec-title">Hobbies</div>
             <div class="hobbies-icons">
-              {{#hobbies}}
+              {{#interests}}
               <div class="hobby-item">
                 <div class="hobby-icon">
                   <svg viewBox="0 0 24 24">
-                    {{#isTravel}}
-                    <path d="M3 17l4-8 4 4 4-6 4 10H3z" />
-                    {{/isTravel}} {{^isTravel}}
-                    <circle cx="12" cy="12" r="8" />
-                    {{/isTravel}}
+                    <circle cx="12" cy="12" r="7" />
+                    <circle cx="12" cy="12" r="2.5" />
                   </svg>
                 </div>
                 <span class="hobby-label">{{name}}</span>
               </div>
-              {{/hobbies}}
+              {{/interests}}
               <!-- fallback static hobbies if none provided -->
-              {{^hobbies}}
+              {{^interests}}
               <div class="hobby-item">
                 <div class="hobby-icon">
                   <svg viewBox="0 0 24 24">
@@ -540,7 +537,7 @@
                 </div>
                 <span class="hobby-label">Chess</span>
               </div>
-              {{/hobbies}}
+              {{/interests}}
             </div>
           </div>
         </div>
