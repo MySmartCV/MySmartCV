@@ -287,6 +287,14 @@
         line-height: 1.4;
       }
 
+      .exp-company:empty {
+        display: none;
+      }
+
+      .company-name + .exp-location::before {
+        content: " – ";
+      }
+
       .exp-dates {
         font-size: 0.35cm;
         color: var(--light);
@@ -398,14 +406,9 @@
               {{#experience}}
               <div class="exp-entry">
                 <div class="exp-role">{{role}}</div>
-                {{#company}}
-                <div class="exp-company">
-                  {{company}}{{#location}} – {{location}}{{/location}}
-                </div>
-                {{/company}}
+                <div class="exp-company">{{#company}}<span class="company-name">{{company}}</span>{{/company}}{{#location}}<span class="exp-location">{{location}}</span>{{/location}}</div>
                 <div class="exp-dates">
-                  {{startDate}}{{#endDate}} –
-                  {{endDate}}{{/endDate}}{{^endDate}} – Present{{/endDate}}
+                  {{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}
                 </div>
                 {{#description}}
                 <div class="exp-desc-block">
