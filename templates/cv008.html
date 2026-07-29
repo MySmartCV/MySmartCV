@@ -365,6 +365,17 @@
             color: var(--accent);
         }
 
+        .edu-year:not(:empty) + .edu-location:not(:empty)::before {
+            content: " | ";
+        }
+
+        .edu-detail {
+            font-size: 0.33cm;
+            color: var(--light);
+            margin-top: 0.8mm;
+            line-height: 1.4;
+        }
+
         /* ── Experience entries ── */
         .exp-list {
             display: flex;
@@ -381,6 +392,15 @@
             color: var(--accent);
             line-height: 1.3;
             margin-bottom: 0.8mm;
+        }
+
+        .exp-company-name + .exp-role-name::before {
+            content: ", ";
+        }
+
+        .exp-role-name + .exp-location::before,
+        .exp-company-name + .exp-location::before {
+            content: " – ";
         }
 
         .exp-dates {
@@ -458,7 +478,7 @@
             <!-- CONTACT -->
             <div class="left-pill"><span class="left-pill-title">Contact</span></div>
             <div class="contact-list">
-                {{#address}}
+                {{#location}}
                 <div class="contact-entry">
                     <div class="c-dot-wrap">
                         <div class="c-dot"></div>
@@ -466,10 +486,10 @@
                     </div>
                     <div class="c-text">
                         <div class="c-label">Address</div>
-                        <div class="c-value">{{address}}</div>
+                        <div class="c-value">{{location}}</div>
                     </div>
                 </div>
-                {{/address}}
+                {{/location}}
                 {{#phone}}
                 <div class="contact-entry">
                     <div class="c-dot-wrap">
@@ -535,10 +555,11 @@
                         </div>
                         <div class="edu-body">
                             <div class="edu-degree">{{degree}}</div>
-                            {{#year}}<div class="edu-dates">{{year}}</div>{{/year}}
-                            {{#startDate}}<div class="edu-dates">{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}
-                            </div>{{/startDate}}
+                            <div class="edu-dates"><span class="edu-year">{{year}}</span><span class="edu-location">{{location}}</span></div>
                             <div class="edu-school">{{school}}</div>
+                            {{#detail}}
+                            <div class="edu-detail">{{detail}}</div>
+                            {{/detail}}
                         </div>
                     </div>
                     {{/education}}
@@ -551,9 +572,10 @@
                 <div class="exp-list">
                     {{#experience}}
                     <div class="exp-entry">
-                        <div class="exp-header">{{company}}{{#role}}, {{role}}{{/role}}</div>
-                        <div class="exp-dates">{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}{{^endDate}} –
-                            Present{{/endDate}}</div>
+                        <div class="exp-header">
+                            {{#company}}<span class="exp-company-name">{{company}}</span>{{/company}}<span class="exp-role-name">{{role}}</span>{{#location}}<span class="exp-location">{{location}}</span>{{/location}}
+                        </div>
+                        <div class="exp-dates">{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}</div>
                         {{#description}}
                         <div class="exp-bullets">
                             <div class="exp-bullet">
