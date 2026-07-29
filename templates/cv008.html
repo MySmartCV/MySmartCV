@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Template 009</title>
+    <script>
+        window.cvConfig = {
+            accent: "#1a3a8f",
+            sections: ["profile", "experience", "education", "skills", "contact"],
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: var(--accent-color, #1a3a8f);
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --muted: #444444;
+            --bar-bg: #b0b8c8;
+            --dot-line: #8899cc;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            max-height: 297mm;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* ═══════════════════════════════════
+         LEFT COLUMN — dark blue, 78mm
+      ═══════════════════════════════════ */
+        .left-col {
+            width: 78mm;
+            flex-shrink: 0;
+            background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Circular photo ── */
+        .photo-wrap {
+            display: flex;
+            justify-content: center;
+            padding: 7mm 0 5mm 0;
+            flex-shrink: 0;
+        }
+
+        .photo-circle {
+            width: 58mm;
+            height: 58mm;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #4466bb;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.4cm;
+            font-weight: 900;
+        }
+
+        /* ── Name block ── */
+        .name-block {
+            padding: 0 6mm 4mm 6mm;
+            flex-shrink: 0;
+        }
+
+        .hero-name {
+            font-size: 0.82cm;
+            font-weight: 900;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin-bottom: 1.5mm;
+        }
+
+        .hero-title {
+            font-size: 0.4cm;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Left pill heading ── */
+        .left-pill {
+            background: var(--white);
+            border-radius: 20px 0 0 20px;
+            margin: 3mm 0 3mm 5mm;
+            padding: 2mm 5mm;
+            display: inline-block;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        .left-pill-title {
+            font-size: 0.46cm;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* ── Contact entries ── */
+        .contact-list {
+            padding: 1mm 6mm 3mm 7mm;
+            display: flex;
+            flex-direction: column;
+            gap: 3mm;
+            flex-shrink: 0;
+        }
+
+        .contact-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5mm;
+            position: relative;
+        }
+
+        /* Dot + vertical line */
+        .c-dot-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            padding-top: 1mm;
+        }
+
+        .c-dot {
+            width: 3.5mm;
+            height: 3.5mm;
+            border-radius: 50%;
+            background: var(--white);
+            flex-shrink: 0;
+        }
+
+        .c-line {
+            width: 1.5px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.35);
+            min-height: 4mm;
+            margin-top: 1mm;
+        }
+
+        .c-text {}
+
+        .c-label {
+            font-size: 0.33cm;
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.5mm;
+        }
+
+        .c-value {
+            font-size: 0.32cm;
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.5;
+        }
+
+        /* ── Skill bars ── */
+        .skills-list {
+            padding: 1mm 5mm 3mm 7mm;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5mm;
+            flex-shrink: 0;
+        }
+
+        .skill-row {}
+
+        .skill-name {
+            font-size: 0.35cm;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1.5mm;
+        }
+
+        .skill-track-wrap {
+            position: relative;
+            height: 5mm;
+        }
+
+        /* Gray background track */
+        .skill-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bar-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 10px;
+            filter: brightness(0.55);
+        }
+
+        /* White rounded badge on right end showing % */
+        .skill-pct {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            color: var(--accent);
+            font-size: 0.3cm;
+            font-weight: 800;
+            border-radius: 20px;
+            padding: 0.5mm 3mm;
+            z-index: 2;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ═══════════════════════════════════
+         RIGHT COLUMN — white
+      ═══════════════════════════════════ */
+        .right-col {
+            flex: 1;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 6mm 7mm 5mm 0;
+            gap: 0;
+        }
+
+        /* ── Right pill heading ── */
+        .right-pill {
+            background: var(--accent);
+            border-radius: 0 20px 20px 0;
+            padding: 2.5mm 7mm 2.5mm 6mm;
+            margin-bottom: 3mm;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        .right-pill-title {
+            font-size: 0.5cm;
+            font-weight: 800;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ── Section wrapper ── */
+        .r-section {
+            flex-shrink: 0;
+            margin-bottom: 4mm;
+            padding-left: 3mm;
+        }
+
+        /* ── About Me ── */
+        .about-text {
+            font-size: 0.35cm;
+            color: var(--accent);
+            line-height: 1.7;
+            padding: 0 4mm 0 3mm;
+        }
+
+        /* ── Education entries ── */
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: 0 3mm 0 3mm;
+        }
+
+        .edu-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5mm;
+            position: relative;
+        }
+
+        .edu-dot-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            padding-top: 1.5mm;
+        }
+
+        .edu-dot {
+            width: 3.5mm;
+            height: 3.5mm;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .edu-vline {
+            width: 1.5px;
+            min-height: 7mm;
+            background: rgba(26, 58, 143, 0.25);
+            flex: 1;
+            margin-top: 1mm;
+        }
+
+        .edu-body {
+            flex: 1;
+            padding-bottom: 3mm;
+        }
+
+        .edu-degree {
+            font-size: 0.37cm;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        .edu-dates {
+            font-size: 0.34cm;
+            color: var(--muted);
+            margin: 0.5mm 0;
+        }
+
+        .edu-school {
+            font-size: 0.37cm;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* ── Experience entries ── */
+        .exp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5mm;
+            padding: 0 3mm 0 3mm;
+        }
+
+        .exp-entry {}
+
+        .exp-header {
+            font-size: 0.4cm;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.3;
+            margin-bottom: 0.8mm;
+        }
+
+        .exp-dates {
+            font-size: 0.34cm;
+            color: var(--muted);
+            margin-bottom: 1.5mm;
+        }
+
+        /* Bullet points list */
+        .exp-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5mm;
+        }
+
+        .exp-bullet {
+            display: flex;
+            align-items: flex-start;
+            gap: 2mm;
+        }
+
+        .exp-bullet-dot-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            padding-top: 1.5mm;
+        }
+
+        .exp-bullet-dot {
+            width: 3mm;
+            height: 3mm;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .exp-bullet-line {
+            width: 1.5px;
+            min-height: 5mm;
+            background: rgba(26, 58, 143, 0.2);
+            flex: 1;
+            margin-top: 0.5mm;
+        }
+
+        .exp-bullet-text {
+            font-size: 0.34cm;
+            color: var(--muted);
+            line-height: 1.55;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- ══════════════ LEFT ══════════════ -->
+        <div class="left-col">
+
+            <!-- Photo -->
+            <div class="photo-wrap">
+                <div class="photo-circle">
+                    {{#photo}}<img src="{{photo}}" alt="Profile" />{{/photo}}
+                    {{^photo}}<div class="photo-placeholder">{{firstName.0}}{{lastName.0}}</div>{{/photo}}
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="name-block">
+                <div class="hero-name">{{firstName}} {{lastName}}</div>
+                {{#jobTitle}}<div class="hero-title">{{jobTitle}}</div>{{/jobTitle}}
+            </div>
+
+            <!-- CONTACT -->
+            <div class="left-pill"><span class="left-pill-title">Contact</span></div>
+            <div class="contact-list">
+                {{#address}}
+                <div class="contact-entry">
+                    <div class="c-dot-wrap">
+                        <div class="c-dot"></div>
+                        <div class="c-line"></div>
+                    </div>
+                    <div class="c-text">
+                        <div class="c-label">Address</div>
+                        <div class="c-value">{{address}}</div>
+                    </div>
+                </div>
+                {{/address}}
+                {{#phone}}
+                <div class="contact-entry">
+                    <div class="c-dot-wrap">
+                        <div class="c-dot"></div>
+                        <div class="c-line"></div>
+                    </div>
+                    <div class="c-text">
+                        <div class="c-label">Phone</div>
+                        <div class="c-value">{{phone}}</div>
+                    </div>
+                </div>
+                {{/phone}}
+                {{#email}}
+                <div class="contact-entry">
+                    <div class="c-dot-wrap">
+                        <div class="c-dot"></div>
+                    </div>
+                    <div class="c-text">
+                        <div class="c-label">Email</div>
+                        <div class="c-value">{{email}}</div>
+                    </div>
+                </div>
+                {{/email}}
+            </div>
+
+            <!-- SKILLS -->
+            <div class="left-pill"><span class="left-pill-title">Skills</span></div>
+            <div class="skills-list">
+                {{#skills}}
+                <div class="skill-row">
+                    <div class="skill-name">{{name}}</div>
+                    <div class="skill-track-wrap">
+                        <div class="skill-track">
+                            <div class="skill-fill" data-level="{{level}}"></div>
+                        </div>
+                        <div class="skill-pct" data-level="{{level}}">{{level}}%</div>
+                    </div>
+                </div>
+                {{/skills}}
+            </div>
+
+        </div>
+        <!-- end left-col -->
+
+        <!-- ══════════════ RIGHT ══════════════ -->
+        <div class="right-col">
+
+            <!-- ABOUT ME -->
+            <div class="r-section">
+                <div class="right-pill"><span class="right-pill-title">About Me</span></div>
+                {{#summary}}<div class="about-text">{{summary}}</div>{{/summary}}
+            </div>
+
+            <!-- EDUCATION -->
+            <div class="r-section">
+                <div class="right-pill"><span class="right-pill-title">Education</span></div>
+                <div class="edu-list">
+                    {{#education}}
+                    <div class="edu-entry">
+                        <div class="edu-dot-wrap">
+                            <div class="edu-dot"></div>
+                            <div class="edu-vline"></div>
+                        </div>
+                        <div class="edu-body">
+                            <div class="edu-degree">{{degree}}</div>
+                            {{#year}}<div class="edu-dates">{{year}}</div>{{/year}}
+                            {{#startDate}}<div class="edu-dates">{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}
+                            </div>{{/startDate}}
+                            <div class="edu-school">{{school}}</div>
+                        </div>
+                    </div>
+                    {{/education}}
+                </div>
+            </div>
+
+            <!-- EXPERIENCE -->
+            <div class="r-section">
+                <div class="right-pill"><span class="right-pill-title">Experience</span></div>
+                <div class="exp-list">
+                    {{#experience}}
+                    <div class="exp-entry">
+                        <div class="exp-header">{{company}}{{#role}}, {{role}}{{/role}}</div>
+                        <div class="exp-dates">{{startDate}}{{#endDate}} – {{endDate}}{{/endDate}}{{^endDate}} –
+                            Present{{/endDate}}</div>
+                        {{#description}}
+                        <div class="exp-bullets">
+                            <div class="exp-bullet">
+                                <div class="exp-bullet-dot-wrap">
+                                    <div class="exp-bullet-dot"></div>
+                                    <div class="exp-bullet-line"></div>
+                                </div>
+                                <div class="exp-bullet-text">{{description}}</div>
+                            </div>
+                        </div>
+                        {{/description}}
+                    </div>
+                    {{/experience}}
+                </div>
+            </div>
+
+        </div>
+        <!-- end right-col -->
+
+    </div><!-- end page -->
+
+    <script>
+        if (window.cvConfig && window.cvConfig.accent) {
+            document.documentElement.style.setProperty('--accent-color', window.cvConfig.accent);
+        }
+
+        document.querySelectorAll('.skill-fill[data-level]').forEach(function (el) {
+            var lvl = Math.min(100, Math.max(0, parseInt(el.getAttribute('data-level'), 10) || 0));
+            el.style.width = lvl + '%';
+        });
+    </script>
+</body>
+
+</html>
