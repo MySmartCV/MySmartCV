@@ -1338,6 +1338,11 @@ const TEMPLATES = [
   { id: "cv003", name: "Executive", num: "03", img: "assets/images/cv003.png" },
   { id: "cv004", name: "Executive", num: "04", img: "assets/images/cv004.png" },
   { id: "cv005", name: "Executive", num: "05", img: "assets/images/cv005.png" },
+  { id: "cv006", name: "Editorial", num: "06", img: "assets/images/cv006.png" },
+  { id: "cv007", name: "Minimal", num: "07", img: "assets/images/cv007.png" },
+  { id: "cv008", name: "Executive", num: "08", img: "assets/images/cv008.png" },
+  { id: "cv009", name: "Executive", num: "09", img: "assets/images/cv009.png" },
+  { id: "cv010", name: "Executive", num: "10", img: "assets/images/cv010.png" },
 ];
 
 let modalCurrent = 0;
@@ -1581,11 +1586,19 @@ function bindDownload() {
       const pageClone = pageEl.cloneNode(true);
 
       // Copy computed styles from original element in the live iframe to resolve CSS variables
-      const iframePage = iframe.contentDocument?.querySelector(".page") || iframe.contentWindow?.document?.querySelector(".page");
+      const iframePage =
+        iframe.contentDocument?.querySelector(".page") ||
+        iframe.contentWindow?.document?.querySelector(".page");
       if (iframePage) {
         const iframeWin = iframe.contentWindow;
-        const origElements = [iframePage, ...Array.from(iframePage.querySelectorAll("*"))];
-        const cloneElements = [pageClone, ...Array.from(pageClone.querySelectorAll("*"))];
+        const origElements = [
+          iframePage,
+          ...Array.from(iframePage.querySelectorAll("*")),
+        ];
+        const cloneElements = [
+          pageClone,
+          ...Array.from(pageClone.querySelectorAll("*")),
+        ];
         for (let i = 0; i < origElements.length; i++) {
           const orig = origElements[i];
           const cl = cloneElements[i];
@@ -1687,7 +1700,10 @@ function bindDownload() {
                   ctx.clip();
 
                   // Cover-fill the image (like object-fit: cover)
-                  const scale = Math.max(SIZE / img.naturalWidth, SIZE / img.naturalHeight);
+                  const scale = Math.max(
+                    SIZE / img.naturalWidth,
+                    SIZE / img.naturalHeight,
+                  );
                   const w = img.naturalWidth * scale;
                   const h = img.naturalHeight * scale;
                   ctx.drawImage(img, (SIZE - w) / 2, (SIZE - h) / 2, w, h);
@@ -1699,7 +1715,9 @@ function bindDownload() {
               });
             } else {
               // Placeholder initials
-              const placeholderSpan = livePhotoDiamond?.querySelector(".photo-diamond-ph span");
+              const placeholderSpan = livePhotoDiamond?.querySelector(
+                ".photo-diamond-ph span",
+              );
               const initials = placeholderSpan?.textContent || "";
 
               ctx.beginPath();
