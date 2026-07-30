@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Template 010</title>
+    <script>
+      window.cvConfig = {
+        accent: "#2b3060",
+        sections: ["profile", "experience", "education", "skills", "contact"],
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --accent: var(--accent-color, #2b3060);
+        --bg: #f5edd8;
+        --white: #ffffff;
+        --text: #2b3060;
+        --muted: #3a3a3a;
+        --light: #555555;
+      }
+
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+        max-height: 297mm;
+        overflow: hidden;
+        margin: 0;
+        font-family: "Open Sans", sans-serif;
+        background: var(--bg);
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        background: var(--bg);
+        position: relative;
+      }
+
+      /* ═══════════════════════════════
+         CORNER DECORATIONS
+      ═══════════════════════════════ */
+
+      /* Top-left: thin cross lines + corner bracket */
+      .deco-tl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 22mm;
+        height: 22mm;
+        z-index: 10;
+        pointer-events: none;
+      }
+      /* Horizontal line */
+      .deco-tl::before {
+        content: "";
+        position: absolute;
+        top: 8mm;
+        left: 5mm;
+        width: 14mm;
+        height: 1px;
+        background: var(--accent);
+      }
+      /* Vertical line */
+      .deco-tl::after {
+        content: "";
+        position: absolute;
+        top: 4mm;
+        left: 9mm;
+        width: 1px;
+        height: 12mm;
+        background: var(--accent);
+      }
+
+      /* Small plus/cross extra mark top-left */
+      .deco-plus {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        width: 4mm;
+        height: 4mm;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .deco-plus::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 1px;
+        background: var(--accent);
+      }
+      .deco-plus::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 100%;
+        background: var(--accent);
+      }
+
+      /* Top-right: filled navy triangle */
+      .deco-tr {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 24mm 24mm 0;
+        border-color: transparent var(--accent) transparent transparent;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      /* Bottom-left: filled navy triangle */
+      .deco-bl {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 20mm 0 0 20mm;
+        border-color: transparent transparent transparent var(--accent);
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      /* Bottom-right: diamond + lines */
+      .deco-br {
+        position: absolute;
+        bottom: 5mm;
+        right: 5mm;
+        width: 16mm;
+        height: 16mm;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .deco-br::before {
+        content: "";
+        position: absolute;
+        bottom: 6mm;
+        right: 0;
+        width: 12mm;
+        height: 1px;
+        background: var(--accent);
+      }
+      .deco-br::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 6mm;
+        width: 1px;
+        height: 12mm;
+        background: var(--accent);
+      }
+
+      /* Diamond star for bottom-right */
+      .deco-diamond {
+        position: absolute;
+        bottom: 12mm;
+        right: 11mm;
+        width: 4mm;
+        height: 4mm;
+        background: var(--accent);
+        transform: rotate(45deg);
+        z-index: 11;
+        pointer-events: none;
+      }
+
+      /* ═══════════════════════════════
+         LEFT COLUMN  (~82mm)
+      ═══════════════════════════════ */
+      .left-col {
+        width: 82mm;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 10mm 7mm 8mm 8mm;
+        overflow: hidden;
+        border-right: 1.5px solid rgba(43, 48, 96, 0.2);
+        gap: 0;
+      }
+
+      /* Photo */
+      .photo-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5mm;
+        flex-shrink: 0;
+      }
+
+      .photo-circle {
+        width: 52mm;
+        height: 52mm;
+        border-radius: 50%;
+        border: 2.5px solid var(--accent);
+        overflow: hidden;
+        background: #c8c0b0;
+      }
+
+      .photo-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+
+      .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(43, 48, 96, 0.5);
+        font-size: 1.3cm;
+        font-weight: 900;
+        font-family: "Playfair Display", serif;
+      }
+
+      /* Contact plain text */
+      .contact-block {
+        margin-bottom: 3mm;
+        flex-shrink: 0;
+      }
+
+      .contact-line {
+        font-size: 0.34cm;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* Divider — line with center dot */
+      .dot-divider {
+        display: flex;
+        align-items: center;
+        margin: 3.5mm 0;
+        flex-shrink: 0;
+      }
+
+      .dot-divider-line {
+        flex: 1;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.5;
+      }
+
+      .dot-divider-dot {
+        width: 4mm;
+        height: 4mm;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin: 0 2mm;
+      }
+
+      /* Section heading — underlined */
+      .left-sec-title {
+        font-family: "Playfair Display", serif;
+        font-size: 0.6cm;
+        font-weight: 900;
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 1.5mm;
+        margin-bottom: 3mm;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      /* Bullet skill list */
+      .skill-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5mm;
+        flex-shrink: 0;
+        margin-bottom: 1mm;
+      }
+
+      .skill-item {
+        font-size: 0.35cm;
+        color: var(--muted);
+        line-height: 1.5;
+        display: flex;
+        align-items: flex-start;
+        gap: 2mm;
+      }
+
+      .skill-bullet {
+        width: 2.5mm;
+        height: 2.5mm;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin-top: 1.2mm;
+      }
+
+      /* Education entries */
+      .edu-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3mm;
+        flex-shrink: 0;
+        margin-bottom: 1mm;
+      }
+
+      .edu-entry {
+      }
+
+      .edu-degree {
+        font-size: 0.37cm;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        line-height: 1.3;
+        margin-bottom: 0.8mm;
+      }
+
+      .edu-school {
+        font-size: 0.34cm;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+
+      .edu-dates {
+        font-size: 0.33cm;
+        color: var(--light);
+      }
+
+      /* Languages */
+      .lang-list {
+        flex-shrink: 0;
+      }
+
+      .lang-item {
+        font-size: 0.36cm;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      /* ═══════════════════════════════
+         RIGHT COLUMN  (flex)
+      ═══════════════════════════════ */
+      .right-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 9mm 8mm 8mm 8mm;
+        overflow: hidden;
+        gap: 0;
+      }
+
+      /* Large display name */
+      .hero-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15cm;
+        font-weight: 900;
+        color: var(--accent);
+        text-transform: uppercase;
+        line-height: 1.05;
+        letter-spacing: 1px;
+        margin-bottom: 2mm;
+      }
+
+      /* Underline rule under name */
+      .name-rule {
+        height: 1.5px;
+        background: var(--accent);
+        margin-bottom: 2mm;
+        opacity: 0.6;
+        flex-shrink: 0;
+      }
+
+      /* Job title */
+      .hero-title {
+        font-size: 0.42cm;
+        font-weight: 400;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 2mm;
+        flex-shrink: 0;
+      }
+
+      /* Dot separator row under job title */
+      .title-sep {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4mm;
+        flex-shrink: 0;
+      }
+
+      .title-sep-line {
+        flex: 1;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.4;
+      }
+
+      .title-sep-dot {
+        width: 3.5mm;
+        height: 3.5mm;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin: 0 3mm;
+      }
+
+      /* Summary */
+      .summary-text {
+        font-size: 0.35cm;
+        color: var(--muted);
+        line-height: 1.75;
+        margin-bottom: 4mm;
+        flex-shrink: 0;
+      }
+
+      /* Right section heading */
+      .right-sec-title {
+        font-family: "Playfair Display", serif;
+        font-size: 0.65cm;
+        font-weight: 900;
+        color: var(--accent);
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 1.5mm;
+        margin-bottom: 3.5mm;
+        flex-shrink: 0;
+        letter-spacing: 0.5px;
+      }
+
+      /* Experience entries */
+      .exp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .exp-entry {
+        margin-bottom: 1mm;
+      }
+
+      .exp-role {
+        font-size: 0.39cm;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+        margin-bottom: 0.5mm;
+      }
+
+      .exp-company {
+        font-size: 0.35cm;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+
+      .exp-dates {
+        font-size: 0.33cm;
+        color: var(--light);
+        margin-bottom: 1.5mm;
+      }
+
+      .exp-bullets {
+        display: flex;
+        flex-direction: column;
+        gap: 1mm;
+        margin-bottom: 1mm;
+      }
+
+      .exp-bullet {
+        display: flex;
+        align-items: flex-start;
+        gap: 2mm;
+        font-size: 0.34cm;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .exp-bullet-dot {
+        width: 2.5mm;
+        height: 2.5mm;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin-top: 1.2mm;
+      }
+
+      /* Entry divider */
+      .exp-divider {
+        display: flex;
+        align-items: center;
+        margin: 3mm 0;
+        flex-shrink: 0;
+      }
+
+      .exp-divider-line {
+        flex: 1;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.3;
+      }
+
+      .exp-divider-dot {
+        width: 3.5mm;
+        height: 3.5mm;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin: 0 3mm;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Decorations -->
+      <div class="deco-tl"></div>
+      <div class="deco-plus"></div>
+      <div class="deco-tr"></div>
+      <div class="deco-bl"></div>
+      <div class="deco-br"></div>
+      <div class="deco-diamond"></div>
+
+      <!-- ══════════════ LEFT ══════════════ -->
+      <div class="left-col">
+        <!-- Photo -->
+        <div class="photo-wrap">
+          <div class="photo-circle">
+            {{#photo}}<img src="{{photo}}" alt="Profile" />{{/photo}} {{^photo}}
+            <div class="photo-placeholder">{{firstName.0}}{{lastName.0}}</div>
+            {{/photo}}
+          </div>
+        </div>
+
+        <!-- Contact (plain text) -->
+        <div class="contact-block">
+          {{#phone}}
+          <div class="contact-line">{{phone}}</div>
+          {{/phone}} {{#email}}
+          <div class="contact-line">{{email}}</div>
+          {{/email}} {{#address}}
+          <div class="contact-line">{{address}}</div>
+          {{/address}} {{#linkedin}}
+          <div class="contact-line">{{linkedin}}</div>
+          {{/linkedin}}
+        </div>
+
+        <!-- Divider -->
+        <div class="dot-divider">
+          <div class="dot-divider-line"></div>
+          <div class="dot-divider-dot"></div>
+          <div class="dot-divider-line"></div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="left-sec-title">Skills</div>
+        <div class="skill-list">
+          {{#skills}}
+          <div class="skill-item">
+            <div class="skill-bullet"></div>
+            <span>{{name}}</span>
+          </div>
+          {{/skills}}
+        </div>
+
+        <!-- Divider -->
+        <div class="dot-divider">
+          <div class="dot-divider-line"></div>
+          <div class="dot-divider-dot"></div>
+          <div class="dot-divider-line"></div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="left-sec-title">Education</div>
+        <div class="edu-list">
+          {{#education}}
+          <div class="edu-entry">
+            <div class="edu-degree">{{degree}}</div>
+            <div class="edu-school">{{school}}</div>
+            {{#year}}
+            <div class="edu-dates">{{year}}</div>
+            {{/year}} {{#startDate}}
+            <div class="edu-dates">
+              {{startDate}}{{#endDate}} - {{endDate}}{{/endDate}}
+            </div>
+            {{/startDate}}
+          </div>
+          {{/education}}
+        </div>
+
+        <!-- Divider -->
+        <div class="dot-divider">
+          <div class="dot-divider-line"></div>
+          <div class="dot-divider-dot"></div>
+          <div class="dot-divider-line"></div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="left-sec-title">Languages</div>
+        <div class="lang-list">
+          {{#languages}}
+          <div class="lang-item">{{name}}</div>
+          {{/languages}}
+        </div>
+      </div>
+      <!-- end left-col -->
+
+      <!-- ══════════════ RIGHT ══════════════ -->
+      <div class="right-col">
+        <!-- Name -->
+        <div class="hero-name">{{firstName}}<br />{{lastName}}</div>
+        <div class="name-rule"></div>
+
+        <!-- Job title -->
+        {{#jobTitle}}
+        <div class="hero-title">{{jobTitle}}</div>
+        {{/jobTitle}}
+        <div class="title-sep">
+          <div class="title-sep-line"></div>
+          <div class="title-sep-dot"></div>
+          <div class="title-sep-line"></div>
+        </div>
+
+        <!-- Summary -->
+        {{#summary}}
+        <div class="summary-text">{{summary}}</div>
+        {{/summary}}
+
+        <!-- WORK EXPERIENCE -->
+        <div class="right-sec-title">Work Experience</div>
+        <div class="exp-list">
+          {{#experience}}
+          <div class="exp-entry">
+            <div class="exp-role">{{role}}</div>
+            {{#company}}
+            <div class="exp-company">{{company}}</div>
+            {{/company}}
+            <div class="exp-dates">
+              {{startDate}}{{#endDate}} - {{endDate}}{{/endDate}}{{^endDate}} -
+              Present{{/endDate}}
+            </div>
+            {{#description}}
+            <div class="exp-bullets">
+              <div class="exp-bullet">
+                <div class="exp-bullet-dot"></div>
+                <span>{{description}}</span>
+              </div>
+            </div>
+            {{/description}}
+          </div>
+          <div class="exp-divider">
+            <div class="exp-divider-line"></div>
+            <div class="exp-divider-dot"></div>
+            <div class="exp-divider-line"></div>
+          </div>
+          {{/experience}}
+        </div>
+      </div>
+      <!-- end right-col -->
+    </div>
+    <!-- end page -->
+
+    <script>
+      if (window.cvConfig && window.cvConfig.accent) {
+        document.documentElement.style.setProperty(
+          "--accent-color",
+          window.cvConfig.accent,
+        );
+      }
+    </script>
+  </body>
+</html>
