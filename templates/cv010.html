@@ -270,6 +270,14 @@
         line-height: 1.45;
       }
 
+      .exp-entry-company:empty {
+        display: none;
+      }
+
+      .company-name + .exp-location::before {
+        content: ", ";
+      }
+
       .exp-entry-dates {
         font-size: 0.34cm;
         font-weight: 400;
@@ -348,6 +356,18 @@
         line-height: 1.5;
       }
 
+      .edu-year:not(:empty) + .edu-location:not(:empty)::before {
+        content: " - ";
+      }
+
+      .edu-detail {
+        font-size: 0.33cm;
+        font-weight: 400;
+        color: var(--text-light);
+        margin-top: 0.5mm;
+        line-height: 1.45;
+      }
+
       .edu-entry-degree {
         font-size: 0.34cm;
         font-weight: 400;
@@ -390,9 +410,9 @@
           <div class="contact-line">{{email}}</div>
           {{/email}} {{#phone}}
           <div class="contact-line">{{phone}}</div>
-          {{/phone}} {{#address}}
-          <div class="contact-line">{{address}}</div>
-          {{/address}} {{#linkedin}}
+          {{/phone}} {{#location}}
+          <div class="contact-line">{{location}}</div>
+          {{/location}} {{#linkedin}}
           <div class="contact-line">{{linkedin}}</div>
           {{/linkedin}} {{#website}}
           <div class="contact-line">{{website}}</div>
@@ -448,16 +468,12 @@
             <div class="exp-entry-role">{{role}}</div>
 
             <!-- Company + optional location -->
-            {{#company}}
-            <div class="exp-entry-company">
-              {{company}}{{#location}}, {{location}}{{/location}}
-            </div>
-            {{/company}}
+            <!-- Company + optional location -->
+            <div class="exp-entry-company">{{#company}}<span class="company-name">{{company}}</span>{{/company}}{{#location}}<span class="exp-location">{{location}}</span>{{/location}}</div>
 
             <!-- Date range -->
             <div class="exp-entry-dates">
-              {{startDate}}{{#endDate}} - {{endDate}}{{/endDate}}{{^endDate}} -
-              Present{{/endDate}}
+              {{startDate}}{{#endDate}} - {{endDate}}{{/endDate}}
             </div>
 
             <!-- Description / bullets -->
@@ -482,16 +498,14 @@
           <div class="edu-entries">
             {{#education}}
             <div class="edu-entry">
-              <div class="edu-entry-school">
-                {{school}}{{#year}} - {{year}}{{/year}}
-              </div>
-              {{#startDate}}
-              <div class="edu-entry-year">
-                {{startDate}}{{#endDate}} - {{endDate}}{{/endDate}}
-              </div>
-              {{/startDate}} {{#degree}}
+              {{#degree}}
               <div class="edu-entry-degree">{{degree}}</div>
               {{/degree}}
+              <div class="edu-entry-school">{{school}}</div>
+              <div class="edu-entry-year"><span class="edu-year">{{year}}</span><span class="edu-location">{{location}}</span></div>
+              {{#detail}}
+              <div class="edu-detail">{{detail}}</div>
+              {{/detail}}
             </div>
             {{/education}}
           </div>
