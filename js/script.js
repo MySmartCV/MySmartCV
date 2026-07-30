@@ -515,11 +515,14 @@ function bindTemplatePicker() {
 }
 
 function bindPreviewToggle() {
-  document
-    .getElementById("btn-preview-toggle")
-    ?.addEventListener("click", () => {
-      document.querySelector(".workspace").classList.toggle("preview-only");
-    });
+  const btn = document.getElementById("btn-toggle-preview") || document.getElementById("btn-preview-toggle");
+  btn?.addEventListener("click", () => {
+    const ws = document.querySelector(".workspace");
+    if (ws) {
+      ws.classList.toggle("show-preview");
+      ws.classList.toggle("preview-only");
+    }
+  });
 }
 
 // ── Expose ───────────────────────────────────────────────────

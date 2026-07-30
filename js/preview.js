@@ -60,7 +60,8 @@ const resizeObserver = new ResizeObserver(() => {
 resizeObserver.observe(document.querySelector(".panel--preview"));
 
 // Also re-scale when toggling preview-only mode
-document.getElementById("btn-preview-toggle")?.addEventListener("click", () => {
+const toggleBtn = document.getElementById("btn-toggle-preview") || document.getElementById("btn-preview-toggle");
+toggleBtn?.addEventListener("click", () => {
   setTimeout(fitScale, 300);
 });
 
