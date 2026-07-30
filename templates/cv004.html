@@ -29,15 +29,16 @@
 
       :root {
         --accent-color: #7c3aed;
-        --purple-darkest: color-mix(in srgb, var(--accent-color) 15%, #000 85%);
-        --purple-dark: color-mix(in srgb, var(--accent-color) 35%, #000 65%);
-        --purple-header: color-mix(in srgb, var(--accent-color) 45%, #000 55%);
-        --purple-mid: color-mix(in srgb, var(--accent-color) 70%, #000 30%);
-        --purple-bright: var(--accent-color);
-        --purple-accent: color-mix(in srgb, var(--accent-color) 60%, #fff 40%);
-        --bar-grad-start: color-mix(in srgb, var(--accent-color) 75%, #000 25%);
-        --bar-grad-end: color-mix(in srgb, var(--accent-color) 80%, #fff 20%);
-        --bar-bg: color-mix(in srgb, var(--accent-color) 20%, #fff 80%);
+        /* Computed by JS from accent color — fallbacks for #7c3aed */
+        --purple-darkest: #0d0418;
+        --purple-dark: #270d4a;
+        --purple-header: #381566;
+        --purple-mid: #5825c4;
+        --purple-bright: #7c3aed;
+        --purple-accent: #9e6cf1;
+        --bar-grad-start: #5e2cb2;
+        --bar-grad-end: #9e74f1;
+        --bar-bg: #e8dcfb;
         --white: #ffffff;
         --text-dark: #1e1e2e;
         --text-mid: #4b4b6b;
@@ -93,7 +94,7 @@
         right: 25mm;
         width: 55mm;
         height: 90mm;
-        background: color-mix(in srgb, var(--accent-color) 18%, transparent);
+        background: rgba(124, 58, 237, 0.18);
         transform: rotate(-18deg);
         pointer-events: none;
       }
@@ -1069,16 +1070,76 @@
     <!-- end page -->
 
     <script>
-      if (window.cvConfig && window.cvConfig.accent) {
-        document.documentElement.style.setProperty(
-          "--accent-color",
-          window.cvConfig.accent,
-        );
-      }
+      // ── Accent colour + derived vars (PDF-safe, no color-mix) ──────
+      (function () {
+        // Parse a hex colour like "#7c3aed" into [r, g, b] 0-255
+        function hexToRgb(hex) {
+          hex = hex.replace(/^#/, "");
+          if (hex.length === 3)
+            hex = hex
+              .split("")
+              .map(function (c) {
+                return c + c;
+              })
+              .join("");
+          var n = parseInt(hex, 16);
+          return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+        }
+
+        // Blend colour A with colour B (both [r,g,b]) by mixing t% of A with (1-t)% of B
+        function blend(a, b, t) {
+          return [
+            Math.round(a[0] * t + b[0] * (1 - t)),
+            Math.round(a[1] * t + b[1] * (1 - t)),
+            Math.round(a[2] * t + b[2] * (1 - t)),
+          ];
+        }
+
+        function rgbToHex(c) {
+          return (
+            "#" +
+            c
+              .map(function (v) {
+                return v.toString(16).padStart(2, "0");
+              })
+              .join("")
+          );
+        }
+
+        var accent =
+          (window.cvConfig && window.cvConfig.accent) || "#7c3aed";
+        var A = hexToRgb(accent);
+        var BLACK = [0, 0, 0];
+        var WHITE = [255, 255, 255];
+        var r = document.documentElement;
+
+        r.style.setProperty("--accent-color", accent);
+        r.style.setProperty("--purple-darkest", rgbToHex(blend(A, BLACK, 0.15)));
+        r.style.setProperty("--purple-dark", rgbToHex(blend(A, BLACK, 0.35)));
+        r.style.setProperty("--purple-header", rgbToHex(blend(A, BLACK, 0.45)));
+        r.style.setProperty("--purple-mid", rgbToHex(blend(A, BLACK, 0.70)));
+        r.style.setProperty("--purple-bright", accent);
+        r.style.setProperty("--purple-accent", rgbToHex(blend(A, WHITE, 0.60)));
+        r.style.setProperty("--bar-grad-start", rgbToHex(blend(A, BLACK, 0.75)));
+        r.style.setProperty("--bar-grad-end", rgbToHex(blend(A, WHITE, 0.80)));
+        r.style.setProperty("--bar-bg", rgbToHex(blend(A, WHITE, 0.20)));
+
+        // Also update the header accent overlay to match new accent
+        var style = document.createElement("style");
+        style.textContent =
+          ".header::after { background: rgba(" +
+          A[0] +
+          "," +
+          A[1] +
+          "," +
+          A[2] +
+          ",0.18) !important; }";
+        document.head.appendChild(style);
+      })();
+
+      // ── Bar width from data-level ───────────────────────────────────
       document
-        .querySelectorAll(
-          ".sk-bar-fill[data-level], .lang-bar-fill[data-level]",
-        )
+        .querySelectorAll(".sk-bar-fill[data-level], .lang-bar-fill[data-level]")
         .forEach(function (el) {
           var lvl = parseFloat(el.getAttribute("data-level") || "0");
           if (el.classList.contains("lang-bar-fill") && lvl <= 5) {

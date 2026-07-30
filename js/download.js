@@ -32,6 +32,21 @@ function getPdfOptions(filename) {
   };
 }
 
+// ── sanitizeColor ─────────────────────────────────────────────
+// html2canvas / jsPDF can't parse modern CSS color functions like
+// color(display-p3 …), color-mix(…), oklch(…), oklab(…).
+// This converts any such value to a safe fallback so export never crashes.
+function sanitizeColor(value) {
+  if (!value || typeof value !== "string") return value;
+  // If it contains an unsupported color function, return transparent/inherit
+  if (/\bcolor\s*\(/.test(value) || /\bcolor-mix\s*\(/.test(value) ||
+      /\boklch\s*\(/.test(value) || /\boklab\s*\(/.test(value) ||
+      /\blch\s*\(/.test(value) || /\blab\s*\(/.test(value)) {
+    return "transparent";
+  }
+  return value;
+}
+
 // ═══════════════════════════════════════════════════════════
 //  Main export function
 // ═══════════════════════════════════════════════════════════
@@ -85,15 +100,15 @@ async function downloadPDF() {
       const computed = win.getComputedStyle(node);
       
       // Apply colors, borders, fills, strokes inline so they are cloned
-      node.style.backgroundColor = computed.backgroundColor;
-      node.style.color = computed.color;
-      node.style.borderColor = computed.borderColor;
-      node.style.borderTopColor = computed.borderTopColor;
-      node.style.borderBottomColor = computed.borderBottomColor;
-      node.style.borderLeftColor = computed.borderLeftColor;
-      node.style.borderRightColor = computed.borderRightColor;
-      node.style.fill = computed.fill;
-      node.style.stroke = computed.stroke;
+      node.style.backgroundColor = sanitizeColor(computed.backgroundColor);
+      node.style.color = sanitizeColor(computed.color);
+      node.style.borderColor = sanitizeColor(computed.borderColor);
+      node.style.borderTopColor = sanitizeColor(computed.borderTopColor);
+      node.style.borderBottomColor = sanitizeColor(computed.borderBottomColor);
+      node.style.borderLeftColor = sanitizeColor(computed.borderLeftColor);
+      node.style.borderRightColor = sanitizeColor(computed.borderRightColor);
+      node.style.fill = sanitizeColor(computed.fill);
+      node.style.stroke = sanitizeColor(computed.stroke);
     });
 
     // Clone the page (now with all computed styles saved inline)
