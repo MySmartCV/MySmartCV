@@ -2,7 +2,7 @@
 "use strict";
 
 const iframe = document.getElementById("cv-preview");
-const scaleWrapper = document.querySelector(".preview-scale-wrapper");
+const scaleWrapper = document.querySelector(".preview-scale-wrap") || document.querySelector(".preview-scale-wrapper");
 
 const CV_WIDTH = 794;
 const PAD = 64;
@@ -42,13 +42,17 @@ function updatePreview(renderedHTML) {
 function fitScale() {
   if (!scaleWrapper || !iframe) return;
 
-  const panelW = document.querySelector(".panel--preview").clientWidth;
+  const panel = document.querySelector(".panel--preview");
+  if (!panel) return;
+  const panelW = panel.clientWidth;
   const available = panelW - PAD * 2;
-  const scale = Math.max(0.6, Math.min(1, available / CV_WIDTH)); // prevent too small
+  const isMobile = window.innerWidth <= 820;
+  const minScale = isMobile ? 0.2 : 0.4;
+  const scale = Math.max(minScale, Math.min(1, available / CV_WIDTH));
 
   scaleWrapper.style.setProperty("--preview-scale", scale);
 
-  const naturalH = scaleWrapper.offsetHeight;
+  const naturalH = scaleWrapper.offsetHeight || 1123;
   const scaledH = naturalH * scale;
   scaleWrapper.style.marginBottom = `${scaledH - naturalH + PAD}px`;
 }
