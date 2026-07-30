@@ -574,14 +574,16 @@
         <!-- Contact (plain text) -->
         <div class="contact-block">
           {{#phone}}
-          <div class="contact-line">{{phone}}</div>
+          <div class="contact-line">Mobile – {{phone}}</div>
           {{/phone}} {{#email}}
-          <div class="contact-line">{{email}}</div>
-          {{/email}}          {{#location}}
-          <div class="contact-line">{{location}}</div>
+          <div class="contact-line">Email – {{email}}</div>
+          {{/email}} {{#location}}
+          <div class="contact-line">Address – {{location}}</div>
           {{/location}} {{#linkedin}}
-          <div class="contact-line">{{linkedin}}</div>
-          {{/linkedin}}
+          <div class="contact-line">LinkedIn – {{linkedin}}</div>
+          {{/linkedin}} {{#website}}
+          <div class="contact-line">Website – {{website}}</div>
+          {{/website}}
         </div>
 
         <!-- Divider -->
