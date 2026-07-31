@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://mysmartcv.github.io/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/template.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/builder.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv001.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv002.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv003.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv004.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv005.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv006.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv007.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv008.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv009.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://mysmartcv.github.io/cv010.html</loc>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>
