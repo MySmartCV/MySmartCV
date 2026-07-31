@@ -42,6 +42,13 @@ const FONTS = {
     file: "Aloevera-OVoWO.ttf",
     format: "truetype",
   },
+  ayaha: {
+    name: "Ayaha (Swashes)",
+    display: "'Ayaha', sans-serif",
+    isLocal: true,
+    file: "AyahaRegularDemowthswshes-7OLKK.ttf",
+    format: "truetype",
+  },
   cinq: {
     name: "Cinq",
     display: "'Cinq', sans-serif",
@@ -120,6 +127,14 @@ const FONTS = {
     format: "truetype",
   },
 };
+
+// ── Body Font Allowlist ──────────────────────────────────
+// Only these fonts appear in the Body Font selector.
+// Header font selector keeps all FONTS entries.
+const BODY_FONT_KEYS = [
+  "playfair", "merriweather", "lato", "raleway",
+  "source", "dmSans", "ayaha", "galafera", "runtime",
+];
 
 // ── State ─────────────────────────────────────────────────
 let currentTemplate = localStorage.getItem("selectedTemplate") || "cv001";
@@ -1165,7 +1180,9 @@ function bindFontSelects() {
 
   Object.entries(FONTS).forEach(([key, f]) => {
     headerSel.appendChild(createOption(key, f));
-    bodySel.appendChild(createOption(key, f));
+    if (BODY_FONT_KEYS.includes(key)) {
+      bodySel.appendChild(createOption(key, f));
+    }
   });
 
   headerSel.value = currentHeaderFont;
