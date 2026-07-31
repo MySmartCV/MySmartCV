@@ -1005,10 +1005,10 @@ function injectCustomStyles(html) {
       .sb-section__title, .sec-title, .sb-section-title, .main-sec-title,
       .sb-sec-title, .left-sec-title, .right-sec-title, .l-sec-title,
       .r-sec-title, .section-title, .section-badge, .contact-heading,
+      .left-pill-title, .right-pill-title, .panel-section-title, .contact-key,
       h1, h2, h3, h4, h5, h6,
       .uni-name, .comp-name, .cert-name, .proj-title,
-      .exp-role, .edu-degree, .exp-entry-role, .edu-entry-degree,
-      .sk-name, .lang-name, .contact-label, .skill-name {
+      .skill-entry-line, .sk-name, .lang-name, .contact-label, .skill-name {
         font-family: ${headerFont.display} !important;
       }
     </style>
